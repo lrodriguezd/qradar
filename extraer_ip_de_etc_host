@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Ruta al archivo /etc/hosts y archivo de salida
+hosts_file="/etc/hosts"
+output_file="direcciones_ip.txt"
+
+# Extraer direcciones IP y guardarlas en el archivo de salida
+awk '/^[0-9]/ { print $1 }' "$hosts_file" > "$output_file"
+
+# Imprimir un mensaje de confirmación
+echo "Direcciones IP extraídas y guardadas en $output_file"
