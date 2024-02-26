@@ -1,10 +1,11 @@
 # Scripts para Gestión de Montaje NFS en QRadar
 
-Este repositorio contiene scripts de Bash para configurar y gestionar el montaje de sistemas de archivos NFS en QRadar . Los scripts realizan varias tareas, incluida la comprobación de la conectividad al servidor NFS, la configuración del montaje NFS.
+Este repositorio contiene ejemplos de scripts y herramientas que los administradores tengan una referencia con uso educativo. Estas muestras se proporcionan "tal cual" y no tienen garantías de ningún tipo.
+Alentamos a los administradores a examinar estos scripts antes de ejecutarlos o probar estas herramientas en un entorno de laboratorio antes de utilizarlas en producción.
+Cualquier problema descubierto utilizando estos ejemplos no debe dirigirse al soporte de QRadar.
+Los scripts realizan varias tareas, incluida la comprobación de la conectividad al servidor NFS, la configuración del montaje NFS.
 Los procedimientos estan basados en las instrucciones provistas en la documentacion oficial disponible en los siguientes sitios web
 [https://www.ibm.com/docs/en/qsip/7.4?topic=device-moving-backups-nfs#t_offboard_nfs_console](https://www.ibm.com/docs/en/qsip/7.5?topic=device-moving-backups-nfs)
-
-
 
 ## Contenido
 
