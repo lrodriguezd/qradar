@@ -31,8 +31,8 @@
 #Fri Sep 27 12:54:16 CST 2024
 
 
-- **Acceso a Internet** para probar la conectividad a servicios externos (por ejemplo, OpenDNS y `ibm.com`).
-- **Configuración correcta de red y DNS** en el servidor.
+#- **Acceso a Internet** para probar la conectividad a servicios externos (por ejemplo, OpenDNS y `ibm.com`).
+#- **Configuración correcta de red y DNS** en el servidor.
 
 # Verificar que el script esté siendo ejecutado como root
 if [ "$EUID" -ne 0 ]; then
