@@ -1,7 +1,21 @@
 #!/usr/bin/env python3
 """
-QRadar Expensive Rules Analyzer
-================================
+QRadar Expensive Rules Analyzer    [ARCHIVED — historical reference only]
+========================================================================
+
+⚠️  Esta version sin tests, sin paquete y con varios bugs conocidos
+    (HTML injection, parser silencioso, sin XSS escape) ha sido REEMPLAZADA
+    por un proyecto propio con pytest, CI, JSON/CSV/Markdown y anonimizacion:
+
+        👉  https://github.com/lrodriguezd/qradar-rule-profiler
+
+    Instalacion:
+        pipx install git+https://github.com/lrodriguezd/qradar-rule-profiler.git
+        qradar-rule-profiler report CustomRule-*.txt
+
+    Este archivo se conserva solo por referencia historica.
+
+========================================================================
 Analiza el archivo CustomRule TSV exportado desde JMX/MBeans del EP
 y genera un reporte HTML con ranking de reglas costosas y recomendaciones.
 
