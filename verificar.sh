@@ -40,13 +40,30 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-# IPs para realizar pruebas a Consola y VPN
-#Escribe la ip de la consola
-IP1=0.0.0.0
-#Escribe la ip del VPN
-IP2=0.0.0.0
-#Escribe la url de la consola
-URL=console-000000.qradar.ibmcloud.com
+# Parametros de linea de comandos (con valores de ejemplo por defecto)
+IP1="0.0.0.0"                                 # -c IP de la consola QRadar
+IP2="0.0.0.0"                                 # -v IP del VPN
+URL="console-NNNNNN.qradar.ibmcloud.com"      # -u URL de la consola
+
+uso() {
+    echo "Uso: sudo $0 -c <ip_consola> -v <ip_vpn> -u <url_consola>"
+    echo "  -c <ip>   IP de la consola QRadar"
+    echo "  -v <ip>   IP del VPN"
+    echo "  -u <url>  URL de la consola (ej. console-NNNNNN.qradar.ibmcloud.com)"
+    echo "  -h        Muestra esta ayuda"
+}
+while getopts "c:v:u:h" _op; do
+    case "$_op" in
+        c) IP1="$OPTARG" ;;
+        v) IP2="$OPTARG" ;;
+        u) URL="$OPTARG" ;;
+        h) uso; exit 0 ;;
+        *) uso; exit 1 ;;
+    esac
+done
+if [ "$IP1" = "0.0.0.0" ] || [ "$IP2" = "0.0.0.0" ]; then
+    echo "Aviso: ejecutando con IPs de ejemplo (0.0.0.0). Proporcione -c y -v para resultados validos; -h para ayuda."
+fi
 
 # Archivo de salida con hostname y fecha de ejecución
 HOSTNAME=$(hostname)
@@ -75,9 +92,7 @@ DOMAIN_IP=$(dig +short "$URL" | tail -n 1)
 if [ "$DOMAIN_IP" == "$IP1" ]; then
     log "✅ La IP del dominio $URL ($DOMAIN_IP) coincide con la IP esperada ($IP1)."
 else
-    log "❌ Fallo: La IP del dominio $URL ($DOMAIN_IP) no coincide con la IP esperada ($IP1). Agregando en /etc/hosts."
-    echo "$IP1  $URL" >> /etc/hosts
-    log "✅ Se agregó $IP1  $URL en /etc/hosts."
+    log "FALLA: La IP del dominio $URL ($DOMAIN_IP) no coincide con la IP esperada ($IP1). NO se modifica /etc/hosts: validar con el administrador de DNS o con IBM antes de aplicar cambios."
 fi
 
 log "$separator"

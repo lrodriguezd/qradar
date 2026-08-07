@@ -23,7 +23,7 @@ Uso:
     python3 qradar_expensive_rules.py <archivo_tsv> [--top N] [--threshold-ms X]
 
 Ejemplo:
-    python3 qradar_expensive_rules.py CustomRule-2026-02-26-10-35-epfp01-00978.txt
+    python3 qradar_expensive_rules.py CustomRule-YYYY-MM-DD-hh-mm-epXX-NNNNN.txt
     python3 qradar_expensive_rules.py CustomRule-*.txt --top 50 --threshold-ms 5
 """
 

@@ -13,7 +13,7 @@ Uso:
 Ejemplos:
     python3 qradar_expensive_properties.py CustomProperties-2026-02-26-12-49.tabular
     python3 qradar_expensive_properties.py CustomProperties-*.tabular --top 50
-    python3 qradar_expensive_properties.py CustomProperties-epfp01.tabular --threshold-ms 0.1
+    python3 qradar_expensive_properties.py CustomProperties-epXX.tabular --threshold-ms 0.1
 
 Cómo obtener el archivo desde QRadar (SSH en el EC):
     /opt/qradar/support/getCustomPropertyStats.sh > CustomProperties-$(hostname)-$(date +%Y%m%d).tabular
