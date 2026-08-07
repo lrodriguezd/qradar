@@ -2,18 +2,18 @@
 
 Colección de scripts y utilidades de **uso educativo** para administradores de IBM QRadar. Estas muestras se proporcionan **"tal cual"** y no tienen garantías de ningún tipo. Examínalos antes de ejecutarlos o pruébalos en un laboratorio antes de usarlos en producción. Cualquier problema descubierto utilizando estos ejemplos **no debe dirigirse a IBM Support**.
 
-> ⚠️ **No oficial.** Este repositorio no tiene afiliación, soporte ni mantenimiento por parte de IBM Corporation.
+> **No oficial.** Este repositorio no tiene afiliación, soporte ni mantenimiento por parte de IBM Corporation.
 
 ---
 
-## 📌 Proyectos derivados (recomendados)
+## Proyectos derivados (recomendados)
 
 Algunos scripts de este repo crecieron y se extrajeron a **proyectos independientes** con tests, CI, documentación y empaquetado adecuados. Si vas a usar uno de los siguientes, usa la versión nueva:
 
 | Script aquí | Versión productiva | Estado |
 |---|---|---|
-| `qradar_expensive_rules.py` | 👉 **[qradar-rule-profiler](https://github.com/lrodriguezd/qradar-rule-profiler)** | Reescrito con pytest (86% cobertura), 4 formatos de salida (HTML/JSON/CSV/MD), CI gating, anonimización, XSS-safe |
-| Auditoría de Windows / WinCollect NSA filter | 👉 **[windows-audit](https://github.com/lrodriguezd/windows-audit)** | v2.0.0 con GUIDs idioma-agnósticos, backup/rollback, PowerShell con -WhatIf |
+| `qradar_expensive_rules.py` | **[qradar-rule-profiler](https://github.com/lrodriguezd/qradar-rule-profiler)** | Reescrito con pytest (86% cobertura), 4 formatos de salida (HTML/JSON/CSV/MD), CI gating, anonimización, XSS-safe |
+| Auditoría de Windows / WinCollect NSA filter | **[windows-audit](https://github.com/lrodriguezd/windows-audit)** | v2.0.0 con GUIDs idioma-agnósticos, backup/rollback, PowerShell con -WhatIf |
 
 El script `qradar_expensive_rules.py` que sigue aquí queda **archivado para referencia histórica**. Para uso real, instala el paquete:
 
@@ -29,7 +29,7 @@ pipx install git+https://github.com/lrodriguezd/qradar-rule-profiler.git
 
 | Archivo | Propósito |
 |---|---|
-| `qradar_expensive_rules.py` | ⚠️ **Archivado** — usar [qradar-rule-profiler](https://github.com/lrodriguezd/qradar-rule-profiler) |
+| `qradar_expensive_rules.py` | **Archivado** — usar [qradar-rule-profiler](https://github.com/lrodriguezd/qradar-rule-profiler) |
 | `qradar_expensive_properties.py` | Analiza propiedades personalizadas costosas (regex CRE) |
 | `script_nfs.sh` + `run-script_nfs.sh` | Configuración de NFS para QRadar |
 | `verificar.sh` | Checks de salud del sistema |
@@ -60,7 +60,7 @@ Este proyecto se distribuye bajo la [Licencia MIT](LICENSE).
 
 ## Proyectos relacionados del autor
 
-- 🔒 **[tls-syslog-pki](https://github.com/lrodriguezd/tls-syslog-pki)** — provisioning de Root CA + server + client certs para TLS Syslog en QRadar, con simulador end-to-end.
-- 🪟 **[windows-audit](https://github.com/lrodriguezd/windows-audit)** — habilita las subcategorías de auditoría avanzada de Windows requeridas por el filtro NSA de WinCollect.
-- ⚡ **[qradar-rule-profiler](https://github.com/lrodriguezd/qradar-rule-profiler)** — analiza el rendimiento del Custom Rule Engine y genera reportes con recomendaciones.
+- **[tls-syslog-pki](https://github.com/lrodriguezd/tls-syslog-pki)** — provisioning de Root CA + server + client certs para TLS Syslog en QRadar, con simulador end-to-end.
+- **[windows-audit](https://github.com/lrodriguezd/windows-audit)** — habilita las subcategorías de auditoría avanzada de Windows requeridas por el filtro NSA de WinCollect.
+- **[qradar-rule-profiler](https://github.com/lrodriguezd/qradar-rule-profiler)** — analiza el rendimiento del Custom Rule Engine y genera reportes con recomendaciones.
 - **[qradar-dlc-diagnostico](https://github.com/lrodriguezd/qradar-dlc-diagnostico)** — diagnostico de sistema operativo para Disconnected Log Collector (DLC): deslinda SO, red, TLS/certificados, CRLs y configuracion, con informe HTML y evidencia por prueba.

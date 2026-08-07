@@ -90,7 +90,7 @@ log "Validando que la IP del dominio $URL coincida con la IP esperada..."
 DOMAIN_IP=$(dig +short "$URL" | tail -n 1)
 
 if [ "$DOMAIN_IP" == "$IP1" ]; then
-    log "✅ La IP del dominio $URL ($DOMAIN_IP) coincide con la IP esperada ($IP1)."
+    log "OK: La IP del dominio $URL ($DOMAIN_IP) coincide con la IP esperada ($IP1)."
 else
     log "FALLA: La IP del dominio $URL ($DOMAIN_IP) no coincide con la IP esperada ($IP1). NO se modifica /etc/hosts: validar con el administrador de DNS o con IBM antes de aplicar cambios."
 fi
@@ -101,9 +101,9 @@ log "$separator"
 log "Comprobando conectividad a ibm.com mediante ping..."
 ping -c 4 ibm.com > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    log "✅ Ping a ibm.com exitoso."
+    log "OK: Ping a ibm.com exitoso."
 else
-    log "❌ Fallo: No se pudo alcanzar ibm.com."
+    log "FALLA: No se pudo alcanzar ibm.com."
 fi
 
 log "$separator"
@@ -113,9 +113,9 @@ log "Obteniendo la IP pública usando OpenDNS..."
 PUBLIC_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
 
 if [ -z "$PUBLIC_IP" ]; then
-    log "❌ Fallo: No se pudo obtener la IP pública. Verifique la conectividad a Internet."
+    log "FALLA: No se pudo obtener la IP pública. Verifique la conectividad a Internet."
 else
-    log "✅ IP pública obtenida: $PUBLIC_IP"
+    log "OK: IP pública obtenida: $PUBLIC_IP"
 fi
 
 log "$separator"
@@ -125,9 +125,9 @@ log "Obteniendo la IP pública usando curl..."
 PUBLIC_IP_CURL=$(curl -s -k https://ifconfig.me)
 
 if [ -z "$PUBLIC_IP_CURL" ]; then
-    log "❌ Fallo: No se pudo obtener la IP pública usando curl. Verifique la conectividad a Internet."
+    log "FALLA: No se pudo obtener la IP pública usando curl. Verifique la conectividad a Internet."
 else
-    log "✅ IP pública obtenida con curl: $PUBLIC_IP_CURL"
+    log "OK: IP pública obtenida con curl: $PUBLIC_IP_CURL"
 fi
 
 log "$separator"
@@ -137,9 +137,9 @@ log "Obteniendo la IP interna del host..."
 HOST_IP=$(hostname -I)
 
 if [ -z "$HOST_IP" ]; then
-    log "❌ Fallo: No se pudo obtener la IP interna. Posible problema de conectividad o falta de configuración."
+    log "FALLA: No se pudo obtener la IP interna. Posible problema de conectividad o falta de configuración."
 else
-    log "✅ IP interna obtenida: $HOST_IP"
+    log "OK: IP interna obtenida: $HOST_IP"
 fi
 
 log "$separator"
@@ -148,9 +148,9 @@ log "$separator"
 log "Verificando espacio en disco en /store..."
 DISK_USAGE=$(df -Th /store | awk 'NR==2 {print $6}' | sed 's/%//')
 if [ "$DISK_USAGE" -lt 90 ]; then
-    log "✅ Espacio en disco suficiente: Uso actual $DISK_USAGE%."
+    log "OK: Espacio en disco suficiente: Uso actual $DISK_USAGE%."
 else
-    log "❌ Fallo: Espacio en disco insuficiente. Uso actual $DISK_USAGE%."
+    log "FALLA: Espacio en disco insuficiente. Uso actual $DISK_USAGE%."
 fi
 
 log "$separator"
@@ -159,9 +159,9 @@ log "$separator"
 log "Comprobando si el servicio openvpn@client está corriendo..."
 ps aux | grep -v grep | grep openvpn@client > /dev/null
 if [ $? -eq 0 ]; then
-    log "✅ El servicio openvpn@client está corriendo."
+    log "OK: El servicio openvpn@client está corriendo."
 else
-    log "❌ Fallo: El servicio openvpn@client NO está corriendo."
+    log "FALLA: El servicio openvpn@client NO está corriendo."
 fi
 
 log "$separator"
@@ -175,9 +175,9 @@ log "$separator"
 # Verificación de permisos de escritura en /store
 log "Comprobando permisos de escritura en /store..."
 if [ -w /store ]; then
-    log "✅ Permiso de escritura en /store correcto."
+    log "OK: Permiso de escritura en /store correcto."
 else
-    log "❌ Fallo: No se puede escribir en /store."
+    log "FALLA: No se puede escribir en /store."
 fi
 
 log "$separator"
@@ -185,7 +185,7 @@ log "$separator"
 # Verificación del tiempo de actividad del sistema
 log "Obteniendo el tiempo de actividad del sistema..."
 UPTIME=$(uptime -p)
-log "✅ El sistema ha estado activo por: $UPTIME."
+log "OK: El sistema ha estado activo por: $UPTIME."
 
 log "$separator"
 
