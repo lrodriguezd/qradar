@@ -102,13 +102,13 @@ def analyze_regex(pattern):
 # ─────────────────────────────────────────────────────────────────────────────
 def classify_severity(avg_ns):
     if avg_ns >= THRESHOLDS["critical"]:
-        return "CRÍTICO", "#dc2626", "[CRITICO]"
+        return "CRÍTICO", "#dc2626", "🔴"
     elif avg_ns >= THRESHOLDS["high"]:
-        return "ALTO", "#ea580c", "[ALTO]"
+        return "ALTO", "#ea580c", "🟠"
     elif avg_ns >= THRESHOLDS["medium"]:
-        return "MEDIO", "#ca8a04", "[MEDIO]"
+        return "MEDIO", "#ca8a04", "🟡"
     else:
-        return "BAJO", "#16a34a", "[BAJO]"
+        return "BAJO", "#16a34a", "🟢"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -136,7 +136,7 @@ def get_recommendation(prop):
         action = "DESHABILITAR"
         priority = 1
         recommendations.append(
-            f"BLOQUEADO: <strong>{cancelled:,} cancelaciones</strong> ({pct_cancel:.1f}% de ejecuciones). "
+            f"⛔ <strong>{cancelled:,} cancelaciones</strong> ({pct_cancel:.1f}% de ejecuciones). "
             f"El motor regex está haciendo timeout en esta propiedad — está causando que eventos "
             f"sean <strong>enrutados directamente a storage sin pasar por el CRE</strong>. "
             f"Deshabilitar inmediatamente hasta reescribir la regex."
@@ -183,7 +183,7 @@ def get_recommendation(prop):
 
     # Agregar issues de regex
     for level, issue in regex_issues:
-        icon = {"CRÍTICO": "[CRITICO]", "ALTO": "[ALTO]", "MEDIO": "[MEDIO]", "BAJO": "[INFO]", "INFO": "INFO"}.get(level, "•")
+        icon = {"CRÍTICO": "🔴", "ALTO": "🟠", "MEDIO": "🟡", "BAJO": "🔵", "INFO": "ℹ️"}.get(level, "•")
         recommendations.append(f"{icon} <em>[Regex/{level}]</em> {issue}")
 
     # Sin recomendaciones específicas
@@ -314,11 +314,11 @@ def generate_html_report(props_analyzed, source_files, top_n, threshold_ns):
         rows_html += f"""
         <tr style="border-bottom:1px solid #e5e7eb;">
             <td style="padding:12px 8px; text-align:center; font-weight:700; color:#6b7280; font-size:13px;">{i}</td>
-            <td style="padding:12px 8px; font-family:monospace; font-size:11px; color:#374151;
+            <td style="padding:12px 8px; font-family:monospace; font-size:11px; color:#374151; 
                        max-width:280px; word-break:break-all;">{pattern_display}</td>
             <td style="padding:12px 8px; text-align:center;">
-                <span style="display:inline-block; background:{sev_color}15; color:{sev_color};
-                       border:1px solid {sev_color}40; border-radius:4px;
+                <span style="display:inline-block; background:{sev_color}15; color:{sev_color}; 
+                       border:1px solid {sev_color}40; border-radius:4px; 
                        padding:2px 8px; font-size:11px; font-weight:700;">
                     {sev_icon} {sev_label}
                 </span>
@@ -338,8 +338,8 @@ def generate_html_report(props_analyzed, source_files, top_n, threshold_ns):
             <td style="padding:12px 8px; text-align:center;">{cancelled_display}</td>
             <td style="padding:12px 8px; font-size:11px; color:#6b7280;">{prop['source_file']}</td>
             <td style="padding:12px 8px; text-align:center;">
-                <span style="display:inline-block; background:{action_color}15; color:{action_color};
-                       border:1px solid {action_color}40; border-radius:4px;
+                <span style="display:inline-block; background:{action_color}15; color:{action_color}; 
+                       border:1px solid {action_color}40; border-radius:4px; 
                        padding:2px 8px; font-size:11px; font-weight:700;">
                     {rec['action']}
                 </span>
@@ -368,10 +368,10 @@ def generate_html_report(props_analyzed, source_files, top_n, threshold_ns):
         .card {{ background:white; border-radius:8px; padding:20px; box-shadow:0 1px 3px rgba(0,0,0,0.1); }}
         .card .value {{ font-size:32px; font-weight:700; margin-bottom:4px; }}
         .card .label {{ font-size:13px; color:#6b7280; }}
-        table {{ width:100%; border-collapse:collapse; background:white; border-radius:8px;
+        table {{ width:100%; border-collapse:collapse; background:white; border-radius:8px; 
                  box-shadow:0 1px 3px rgba(0,0,0,0.1); overflow:hidden; }}
         thead tr {{ background:#1e1b4b; color:white; }}
-        thead th {{ padding:12px 8px; text-align:left; font-size:11px; font-weight:600;
+        thead th {{ padding:12px 8px; text-align:left; font-size:11px; font-weight:600; 
                     text-transform:uppercase; letter-spacing:0.05em; white-space:nowrap; }}
         tbody tr:hover {{ background:#f9fafb; }}
         .legend {{ display:flex; gap:16px; margin-bottom:16px; flex-wrap:wrap; align-items:center; }}
@@ -382,7 +382,7 @@ def generate_html_report(props_analyzed, source_files, top_n, threshold_ns):
 <body>
 
 <div class="header">
-    <h1>QRadar — Expensive Custom Properties Analyzer</h1>
+    <h1>🔍 QRadar — Expensive Custom Properties Analyzer</h1>
     <div class="meta">
         Fuente: <strong>{source_label}</strong> &nbsp;|&nbsp;
         Generado: <strong>{now}</strong> &nbsp;|&nbsp;
@@ -396,37 +396,37 @@ def generate_html_report(props_analyzed, source_files, top_n, threshold_ns):
     <div class="summary-grid" style="margin-top:24px;">
         <div class="card">
             <div class="value" style="color:#dc2626;">{critical_count}</div>
-            <div class="label">[CRITICO] CRÍTICAS (&gt;0.5ms)</div>
+            <div class="label">🔴 CRÍTICAS (&gt;0.5ms)</div>
         </div>
         <div class="card">
             <div class="value" style="color:#ea580c;">{high_count}</div>
-            <div class="label">[ALTO] ALTAS (0.2–0.5ms)</div>
+            <div class="label">🟠 ALTAS (0.2–0.5ms)</div>
         </div>
         <div class="card">
             <div class="value" style="color:#ca8a04;">{medium_count}</div>
-            <div class="label">[MEDIO] MEDIAS (0.05–0.2ms)</div>
+            <div class="label">🟡 MEDIAS (0.05–0.2ms)</div>
         </div>
         <div class="card">
-            <div class="value" style="color:#dc2626; font-size:28px;">{'AVISO: ' if cancelled_count > 0 else ''}{cancelled_count}</div>
-            <div class="label">BLOQUEADO: Con cancelaciones (CRE bypass)</div>
+            <div class="value" style="color:#dc2626; font-size:28px;">{'⚠️ ' if cancelled_count > 0 else ''}{cancelled_count}</div>
+            <div class="label">⛔ Con cancelaciones (CRE bypass)</div>
         </div>
         <div class="card">
             <div class="value" style="color:#374151;">{len(props_analyzed):,}</div>
-            <div class="label">Total propiedades analizadas</div>
+            <div class="label">📊 Total propiedades analizadas</div>
         </div>
     </div>
 
     <!-- RESUMEN -->
     <div class="card" style="margin-bottom:24px; border-left:4px solid #7c3aed;">
-        <div style="font-size:14px; font-weight:700; margin-bottom:8px;">Resumen Ejecutivo</div>
+        <div style="font-size:14px; font-weight:700; margin-bottom:8px;">📋 Resumen Ejecutivo</div>
         <div style="font-size:13px; color:#374151; line-height:1.7;">
-            {'<div style="background:#fef2f2; border:1px solid #fecaca; border-radius:6px; padding:10px; margin-bottom:12px; color:#dc2626;"><strong>BLOQUEADO: ALERTA CRÍTICA:</strong> Se detectaron ' + str(cancelled_count) + ' custom propert' + ('ies' if cancelled_count != 1 else 'y') + ' con cancelaciones (TimesCancelled &gt; 0). Esto indica que el motor regex está haciendo timeout, lo que causa que eventos sean enrutados directamente a storage sin pasar por el CRE. Deshabilitar inmediatamente.</div>' if cancelled_count > 0 else ''}
+            {'<div style="background:#fef2f2; border:1px solid #fecaca; border-radius:6px; padding:10px; margin-bottom:12px; color:#dc2626;"><strong>⛔ ALERTA CRÍTICA:</strong> Se detectaron ' + str(cancelled_count) + ' custom propert' + ('ies' if cancelled_count != 1 else 'y') + ' con cancelaciones (TimesCancelled &gt; 0). Esto indica que el motor regex está haciendo timeout, lo que causa que eventos sean enrutados directamente a storage sin pasar por el CRE. Deshabilitar inmediatamente.</div>' if cancelled_count > 0 else ''}
             Se analizaron <strong>{len(props_analyzed):,} custom properties</strong>.
-            Se identificaron <strong style="color:#dc2626;">{critical_count} propiedades críticas</strong> con tiempo de evaluación
+            Se identificaron <strong style="color:#dc2626;">{critical_count} propiedades críticas</strong> con tiempo de evaluación 
             superior a 0.5ms que impactan directamente el rendimiento del pipeline de eventos.
             <br><br>
             <strong>Top 3 propiedades más costosas:</strong><br>
-            <div style="margin-top:8px; font-family:monospace; font-size:11px; background:#f3f4f6;
+            <div style="margin-top:8px; font-family:monospace; font-size:11px; background:#f3f4f6; 
                         padding:10px; border-radius:4px; line-height:1.8; word-break:break-all;">
                 {top3_html}
             </div>
@@ -468,15 +468,15 @@ def generate_html_report(props_analyzed, source_files, top_n, threshold_ns):
     <!-- GUÍA -->
     <div class="card" style="margin-bottom:24px;">
         <div style="font-size:16px; font-weight:700; margin-bottom:16px; padding-bottom:8px; border-bottom:2px solid #e5e7eb;">
-            Guía de Optimización de Custom Properties
+            🔧 Guía de Optimización de Custom Properties
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:13px;">
             <div>
                 <div style="font-weight:700; color:#7c3aed; margin-bottom:8px;">Patrones ineficientes → alternativas</div>
                 <table style="width:100%; font-size:12px; border:none; box-shadow:none;">
                     <tr style="background:#f3f4f6;">
-                        <th style="padding:6px; text-align:left; background:#7c3aed; color:white;">FALLA: Evitar</th>
-                        <th style="padding:6px; text-align:left; background:#16a34a; color:white;">OK: Preferir</th>
+                        <th style="padding:6px; text-align:left; background:#7c3aed; color:white;">❌ Evitar</th>
+                        <th style="padding:6px; text-align:left; background:#16a34a; color:white;">✅ Preferir</th>
                     </tr>
                     <tr style="border-bottom:1px solid #e5e7eb;"><td style="padding:6px; font-family:monospace;">.*?</td><td style="padding:6px; font-family:monospace;">[^delimitador]+</td></tr>
                     <tr style="border-bottom:1px solid #e5e7eb;"><td style="padding:6px; font-family:monospace;">(.+)+</td><td style="padding:6px; font-family:monospace;">([^x]+)</td></tr>
@@ -497,18 +497,18 @@ def generate_html_report(props_analyzed, source_files, top_n, threshold_ns):
                 </ol>
             </div>
             <div>
-                <div style="font-weight:700; color:#dc2626; margin-bottom:8px;">AVISO: Impacto de TimesCancelled &gt; 0</div>
+                <div style="font-weight:700; color:#dc2626; margin-bottom:8px;">⚠️ Impacto de TimesCancelled &gt; 0</div>
                 <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:6px; padding:12px; color:#374151; line-height:1.6;">
-                    Cuando una custom property cancela, el evento <strong>se enruta directamente
-                    a storage sin pasar por el CRE</strong>. Esto significa que ninguna regla de
-                    correlación puede actuar sobre ese evento — es el mismo síntoma descrito en
-                    el error QRadar 38750138. El impacto es silencioso: no hay alerta visible
+                    Cuando una custom property cancela, el evento <strong>se enruta directamente 
+                    a storage sin pasar por el CRE</strong>. Esto significa que ninguna regla de 
+                    correlación puede actuar sobre ese evento — es el mismo síntoma descrito en 
+                    el error QRadar 38750138. El impacto es silencioso: no hay alerta visible 
                     pero las ofensas no se generan.
                 </div>
             </div>
             <div>
-                <div style="font-weight:700; color:#16a34a; margin-bottom:8px;">OK: Cómo obtener el archivo</div>
-                <div style="font-family:monospace; font-size:11px; background:#f0fdf4; padding:12px;
+                <div style="font-weight:700; color:#16a34a; margin-bottom:8px;">✅ Cómo obtener el archivo</div>
+                <div style="font-family:monospace; font-size:11px; background:#f0fdf4; padding:12px; 
                             border-radius:4px; line-height:1.8; color:#374151; border:1px solid #bbf7d0;">
                     # SSH al Event Collector (EC):<br>
                     cd /opt/qradar/support<br>

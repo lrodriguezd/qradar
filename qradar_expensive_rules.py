@@ -3,11 +3,11 @@
 QRadar Expensive Rules Analyzer    [ARCHIVED — historical reference only]
 ========================================================================
 
-AVISO:  Esta version sin tests, sin paquete y con varios bugs conocidos
+⚠️  Esta version sin tests, sin paquete y con varios bugs conocidos
     (HTML injection, parser silencioso, sin XSS escape) ha sido REEMPLAZADA
     por un proyecto propio con pytest, CI, JSON/CSV/Markdown y anonimizacion:
 
-         https://github.com/lrodriguezd/qradar-rule-profiler
+        👉  https://github.com/lrodriguezd/qradar-rule-profiler
 
     Instalacion:
         pipx install git+https://github.com/lrodriguezd/qradar-rule-profiler.git
@@ -237,13 +237,13 @@ def parse_tsv(filepath):
 # ─────────────────────────────────────────────────────────────────────────────
 def classify_severity(avg_ms):
     if avg_ms >= THRESHOLDS["critical"] * 1000:
-        return "CRÍTICO", "#dc2626", "[CRITICO]"
+        return "CRÍTICO", "#dc2626", "🔴"
     elif avg_ms >= THRESHOLDS["high"] * 1000:
-        return "ALTO", "#ea580c", "[ALTO]"
+        return "ALTO", "#ea580c", "🟠"
     elif avg_ms >= THRESHOLDS["medium"] * 1000:
-        return "MEDIO", "#ca8a04", "[MEDIO]"
+        return "MEDIO", "#ca8a04", "🟡"
     else:
-        return "BAJO", "#16a34a", "[BAJO]"
+        return "BAJO", "#16a34a", "🟢"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -303,8 +303,8 @@ def generate_html_report(rules_analyzed, source_file, top_n, threshold_ms):
                 {'<div style="font-size:11px; color:#9ca3af;">ID: ' + rule['id'] + '</div>' if rule['id'] else ''}
             </td>
             <td style="padding:12px 8px; text-align:center;">
-                <span style="display:inline-block; background:{sev_color}15; color:{sev_color};
-                       border:1px solid {sev_color}40; border-radius:4px;
+                <span style="display:inline-block; background:{sev_color}15; color:{sev_color}; 
+                       border:1px solid {sev_color}40; border-radius:4px; 
                        padding:2px 8px; font-size:11px; font-weight:700;">
                     {sev_icon} {sev_label}
                 </span>
@@ -320,8 +320,8 @@ def generate_html_report(rules_analyzed, source_file, top_n, threshold_ms):
             <td style="padding:12px 8px; text-align:right; font-size:13px;">{fired_display}</td>
             <td style="padding:12px 8px; text-align:right; color:#6b7280; font-size:13px;">{cpu_display}</td>
             <td style="padding:12px 8px; text-align:center;">
-                <span style="display:inline-block; background:{action_color}15; color:{action_color};
-                       border:1px solid {action_color}40; border-radius:4px;
+                <span style="display:inline-block; background:{action_color}15; color:{action_color}; 
+                       border:1px solid {action_color}40; border-radius:4px; 
                        padding:2px 8px; font-size:11px; font-weight:700;">
                     {rec['action']}
                 </span>
@@ -345,7 +345,7 @@ def generate_html_report(rules_analyzed, source_file, top_n, threshold_ms):
     <title>QRadar — Expensive Rules Report</title>
     <style>
         * {{ box-sizing: border-box; margin: 0; padding: 0; }}
-        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
                 background: #f9fafb; color: #111827; }}
         .header {{ background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e40af 100%);
                    color: white; padding: 32px 40px; }}
@@ -356,12 +356,12 @@ def generate_html_report(rules_analyzed, source_file, top_n, threshold_ms):
         .card {{ background: white; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }}
         .card .value {{ font-size: 32px; font-weight: 700; margin-bottom: 4px; }}
         .card .label {{ font-size: 13px; color: #6b7280; }}
-        .section-title {{ font-size: 18px; font-weight: 700; margin-bottom: 16px; color: #111827;
+        .section-title {{ font-size: 18px; font-weight: 700; margin-bottom: 16px; color: #111827; 
                           padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; }}
-        table {{ width: 100%; border-collapse: collapse; background: white;
+        table {{ width: 100%; border-collapse: collapse; background: white; 
                  border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }}
         thead tr {{ background: #1e1b4b; color: white; }}
-        thead th {{ padding: 12px 8px; text-align: left; font-size: 12px; font-weight: 600;
+        thead th {{ padding: 12px 8px; text-align: left; font-size: 12px; font-weight: 600; 
                     text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }}
         tbody tr:hover {{ background: #f9fafb; }}
         .legend {{ display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }}
@@ -377,10 +377,10 @@ def generate_html_report(rules_analyzed, source_file, top_n, threshold_ms):
 <body>
 
 <div class="header">
-    <h1>QRadar — Expensive Rules Analyzer</h1>
+    <h1>⚡ QRadar — Expensive Rules Analyzer</h1>
     <div class="meta">
-        Fuente: <strong>{ep_name}</strong> &nbsp;|&nbsp;
-        Generado: <strong>{now}</strong> &nbsp;|&nbsp;
+        Fuente: <strong>{ep_name}</strong> &nbsp;|&nbsp; 
+        Generado: <strong>{now}</strong> &nbsp;|&nbsp; 
         Umbral análisis: <strong>&gt;{threshold_ms}ms</strong> &nbsp;|&nbsp;
         Mostrando top: <strong>{top_n} reglas</strong>
     </div>
@@ -392,28 +392,28 @@ def generate_html_report(rules_analyzed, source_file, top_n, threshold_ms):
     <div class="summary-grid" style="margin-top:24px;">
         <div class="card">
             <div class="value" style="color:#dc2626;">{critical_count}</div>
-            <div class="label">[CRITICO] Reglas CRÍTICAS (&gt;100ms)</div>
+            <div class="label">🔴 Reglas CRÍTICAS (&gt;100ms)</div>
         </div>
         <div class="card">
             <div class="value" style="color:#ea580c;">{high_count}</div>
-            <div class="label">[ALTO] Reglas ALTAS (50–100ms)</div>
+            <div class="label">🟠 Reglas ALTAS (50–100ms)</div>
         </div>
         <div class="card">
             <div class="value" style="color:#ca8a04;">{medium_count}</div>
-            <div class="label">[MEDIO] Reglas MEDIAS (20–50ms)</div>
+            <div class="label">🟡 Reglas MEDIAS (20–50ms)</div>
         </div>
         <div class="card">
             <div class="value" style="color:#374151;">{total_cpu_s:.1f}s</div>
-            <div class="label">CPU acumulada (top {top_n})</div>
+            <div class="label">⏱ CPU acumulada (top {top_n})</div>
         </div>
     </div>
 
     <!-- CONTEXTO -->
     <div class="card" style="margin-bottom:24px; border-left:4px solid #1e40af;">
-        <div style="font-size:14px; font-weight:700; margin-bottom:8px;">Resumen Ejecutivo</div>
+        <div style="font-size:14px; font-weight:700; margin-bottom:8px;">📋 Resumen Ejecutivo</div>
         <div style="font-size:13px; color:#374151; line-height:1.6;">
             Se analizaron <strong>{len(rules_analyzed):,} reglas activas</strong> del Event Processor <strong>{ep_name}</strong>.
-            Se identificaron <strong style="color:#dc2626;">{critical_count} reglas críticas</strong> con tiempo de evaluación
+            Se identificaron <strong style="color:#dc2626;">{critical_count} reglas críticas</strong> con tiempo de evaluación 
             superior a 100ms, que representan el mayor impacto en el rendimiento del CRE.
             <br><br>
             <strong>Top 3 reglas más costosas:</strong><br>
@@ -421,14 +421,14 @@ def generate_html_report(rules_analyzed, source_file, top_n, threshold_ms):
                 {top3_names}
             </div>
             <br>
-            <strong>Recomendación prioritaria:</strong> Las reglas marcadas como
-            <span style="background:#dc262615; color:#dc2626; border:1px solid #dc262640; border-radius:4px;
-                  padding:1px 6px; font-size:11px; font-weight:700;">DESHABILITAR</span> y
-            <span style="background:#9333ea15; color:#9333ea; border:1px solid #9333ea40; border-radius:4px;
-                  padding:1px 6px; font-size:11px; font-weight:700;">REESCRIBIR</span>
-            deben atenderse en las próximas 48 horas. Las reglas Building Block
-            (<span style="background:#ea580c15; color:#ea580c; border:1px solid #ea580c40; border-radius:4px;
-                  padding:1px 6px; font-size:11px; font-weight:700;">OPTIMIZAR BB</span>)
+            <strong>Recomendación prioritaria:</strong> Las reglas marcadas como 
+            <span style="background:#dc262615; color:#dc2626; border:1px solid #dc262640; border-radius:4px; 
+                  padding:1px 6px; font-size:11px; font-weight:700;">DESHABILITAR</span> y 
+            <span style="background:#9333ea15; color:#9333ea; border:1px solid #9333ea40; border-radius:4px; 
+                  padding:1px 6px; font-size:11px; font-weight:700;">REESCRIBIR</span> 
+            deben atenderse en las próximas 48 horas. Las reglas Building Block 
+            (<span style="background:#ea580c15; color:#ea580c; border:1px solid #ea580c40; border-radius:4px; 
+                  padding:1px 6px; font-size:11px; font-weight:700;">OPTIMIZAR BB</span>) 
             tienen efecto multiplicador sobre el resto del motor de correlación.
         </div>
     </div>
@@ -469,7 +469,7 @@ def generate_html_report(rules_analyzed, source_file, top_n, threshold_ms):
     <!-- GUÍA DE OPTIMIZACIÓN -->
     <div class="card" style="margin-bottom:24px;">
         <div style="font-size:16px; font-weight:700; margin-bottom:16px; padding-bottom:8px; border-bottom:2px solid #e5e7eb;">
-            Guía de Optimización de Reglas en QRadar
+            🔧 Guía de Optimización de Reglas en QRadar
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:13px;">
             <div>
@@ -496,7 +496,7 @@ def generate_html_report(rules_analyzed, source_file, top_n, threshold_ms):
                 </div>
             </div>
             <div>
-                <div style="font-weight:700; color:#dc2626; margin-bottom:8px;">AVISO: Antes de deshabilitar una regla</div>
+                <div style="font-weight:700; color:#dc2626; margin-bottom:8px;">⚠️ Antes de deshabilitar una regla</div>
                 <ul style="padding-left:16px; line-height:1.8; color:#374151;">
                     <li>Verificar si tiene ofensas activas asociadas</li>
                     <li>Confirmar con el equipo SOC si es operacionalmente requerida</li>
@@ -505,7 +505,7 @@ def generate_html_report(rules_analyzed, source_file, top_n, threshold_ms):
                 </ul>
             </div>
             <div>
-                <div style="font-weight:700; color:#16a34a; margin-bottom:8px;">OK: Métricas post-optimización</div>
+                <div style="font-weight:700; color:#16a34a; margin-bottom:8px;">✅ Métricas post-optimización</div>
                 <ul style="padding-left:16px; line-height:1.8; color:#374151;">
                     <li>AllTimeAverageTestTime debe bajar &lt;10ms</li>
                     <li>CapacityEPS debe subir (más margen disponible)</li>
@@ -519,7 +519,7 @@ def generate_html_report(rules_analyzed, source_file, top_n, threshold_ms):
 </div>
 
 <div class="footer">
-    Generado por QRadar Expensive Rules Analyzer &nbsp;·&nbsp; {now} &nbsp;·&nbsp;
+    Generado por QRadar Expensive Rules Analyzer &nbsp;·&nbsp; {now} &nbsp;·&nbsp; 
     Fuente: {source_file}
 </div>
 
