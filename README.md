@@ -63,3 +63,4 @@ Este proyecto se distribuye bajo la [Licencia MIT](LICENSE).
 - 🔒 **[tls-syslog-pki](https://github.com/lrodriguezd/tls-syslog-pki)** — provisioning de Root CA + server + client certs para TLS Syslog en QRadar, con simulador end-to-end.
 - 🪟 **[windows-audit](https://github.com/lrodriguezd/windows-audit)** — habilita las subcategorías de auditoría avanzada de Windows requeridas por el filtro NSA de WinCollect.
 - ⚡ **[qradar-rule-profiler](https://github.com/lrodriguezd/qradar-rule-profiler)** — analiza el rendimiento del Custom Rule Engine y genera reportes con recomendaciones.
+- **[qradar-dlc-diagnostico](https://github.com/lrodriguezd/qradar-dlc-diagnostico)** — diagnostico de sistema operativo para Disconnected Log Collector (DLC): deslinda SO, red, TLS/certificados, CRLs y configuracion, con informe HTML y evidencia por prueba.
